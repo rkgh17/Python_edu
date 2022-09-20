@@ -26,11 +26,20 @@
 #     c=a+b
 
 #prime number (소수)
-for i in range(2,1001):
-    cnt=0
-    for j in range(1,i):
-        if(i%j==0):
-            cnt+=1
+# for i in range(2,1001):
+#     cnt=0
+#     for j in range(1,i):
+#         if(i%j==0):
+#             cnt+=1
 
-    if(cnt==1):
-        print(f'{i}',end=" ")
+#     if(cnt==1):
+#         print(f'{i}',end=" ")
+
+for i in range(2,1001):
+    flag = False
+    for j in range(2,i):
+        if i%j==0:
+            flag=True
+            break
+    if flag==False:
+        print(i,end=" ")
