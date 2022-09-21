@@ -22,12 +22,3 @@ print()
 for std in Student:
     print(std['name'], std['math'])
 f.close()
-
-print('-'*80)
-f=open('d:/AI_Class/Python/file/student.txt','r')
-line=f.readline()
-while line!='':
-    print(line)
-    ar=line.split(',')
-    line=f.readline()
-f.close()
