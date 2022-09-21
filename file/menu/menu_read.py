@@ -10,4 +10,6 @@ while line!='':
 f.close()
 
 for m in menu:
-    print(m['name'], m['price'])
+    ndx=1
+    print('%2d | %-10s | %4d원'%(ndx, m['name'], m['price']))
+    ndx+=1
