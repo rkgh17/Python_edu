@@ -8,13 +8,13 @@ class Sales:
     def append(self,orderList,mobile):
         now = datetime.now().strftime('%Y=%m=%d %H:%M:%S')
         for order in orderList:
-            self.lsales.append({'sold_time':now,'mobile':mobile,'menu':order['menu'],'qyt':order['qty'],'total':order['total']})
-        
+            self.lsales.append({'sold_time':now,'mobile':mobile,'menu':order['menu'],'qty':order['qty'],'total':order['total']})
 
     def display(self):#총 실적확인
         grandTotal=0
         for sale in self.lsales:
-            print('%-20s %11s %10s %2d %6d'%(sale['sold_time'],sale['mobile'],sale['menu'],sale['qty'],sale['total']))
+            print('%-20s | %11s | %10s | %6s | %6s'%('Day','Mobile','Menu','Qty','Total'))
+            print('%-20s | %11s | %10s | %6d | %6d'%(sale['sold_time'],sale['mobile'],sale['menu'],sale['qty'],sale['total']))
             grandTotal+=int(sale['total'])
-            print('-'*60)
-            print('총매출액 : '+grandTotal)
+        print('-'*60)
+        print('총매출액 : '+str(grandTotal))

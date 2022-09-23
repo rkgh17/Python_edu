@@ -73,12 +73,11 @@ class Menu:
         print('수정 완료')
 
     def deleteMenu(self):
-        menu_num=int(input('삭제할 메뉴번호 : '))
+        menu_num=input('삭제할 메뉴번호 : ')
+        while not menu_num.isnumeric():
+            menu_num=input('숫자를 입력해주세요 : ')
+        menu_num=int(menu_num)
         del self.lmenu[menu_num-1]
-        # f=open('d:/AI_Class/Python/file/menu/menu.txt','w')
-        # for m in self.menu:
-        #     f.write(m['name']+','+str(m['price'])+'\n')
-        # f.close()
         self.save2file()
         print('삭제 완료')
 
@@ -99,8 +98,7 @@ while num!=0:
         order.build(menu.lmenu)
         #매출실적에 추가 with order.lorder, order.moblie
         sales.append(order.lorder, order.mobile)
-        print('-'*60)
-        num=int(input('1.주문입력 | 2.메뉴관리 | 3.실적보기 | 0.프로그램 종료 \n번호입력 : '))
+
     elif num==2:
         print('-'*60)
         job=int(input('메뉴관리 : 1.추가 | 2.조회 | 3.수정 | 4.삭제 | 0.종료\n번호입력 : '))
@@ -121,10 +119,13 @@ while num!=0:
         num=int(input('1.주문입력 | 2.메뉴관리 | 3.실적보기 | 0.프로그램 종료 \n번호입력 : '))
         
     elif num==3:
+        print('-'*60)
         sales.display()
 
     else:
         num=input('입력 오류')
+    
+    print('-'*60)
     num=int(input('1.주문입력 | 2.메뉴관리 | 3.실적보기 | 0.프로그램 종료 \n번호입력 : '))
 
 print('프로그램 종료')
