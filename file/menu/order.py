@@ -2,6 +2,7 @@ class Order:
 
     def __init__(self):
         self.lorder=[]
+        self.mobile=''
 
     def build(self,menulist):
         grandTotal=0#총 누적합
@@ -21,6 +22,7 @@ class Order:
             total=menulist[menu_num-1]['price']*qty
             print(f'금액 : {total}원')
             grandTotal+=total
+            self.lorder.append({'menu':menulist[menu_num-1]['name'],'qty':qty,'total':total})
             menu_num=input('메뉴번호를 입력하시오 : ')
         print(f'주문총금액 : {grandTotal}원')
         self.mobile=input('적립 모바일 번호:')
