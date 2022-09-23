@@ -74,3 +74,42 @@ c = np.zeros_like(b,dtype=int)
 print(a)
 print(b)
 print(c)
+
+# 모든 값이 비어있는 배열
+a = np.empty((2,2),dtype=int)
+b = [1,2,3,4,5]
+c = np.empty_like(b,dtype=int)
+
+print(a)
+print(b)
+print(c)
+
+#  대각의 값이 1인 배열(단위 행렬)
+a = np.identity(4,dtype=int)# 4*4의 단위행렬
+b = np.eye(4,4,k=1,dtype=int)# k값만큼 이격된 단위 행렬
+print(a)
+print(b)
+
+a = np.identity(20,dtype=int)
+b = np.eye(7,7,k=2,dtype=int)
+c = np.eye(7,7,k=-2,dtype=int)
+print(a)
+print('\n\n')
+print(b)
+print('\n\n')
+print(c)
+
+#등간격
+a = np.arange(0,10,step=5)
+b = np.arange(1,10,step=5)
+c = np.arange(0,10,step=1)
+print(a)
+print(b)
+print(c)
+
+a = np.linspace(0,10,num=5,endpoint=True,retstep=True) # 0부터 10 사이의 값을 num만큼 생성하여 배열로 반환 / retstep이 true일 경우 값들의 간격을 표히새줌
+b = np.linspace(1,10,num=5,endpoint=True,retstep=False) # 1부터 10까지를 5등분
+c = np.linspace(0,10,num=5,endpoint=False,retstep=False) # endpoint가 ture일 경우 end의 값이 마지막이 됨
+print(a)
+print(b)
+print(c)
