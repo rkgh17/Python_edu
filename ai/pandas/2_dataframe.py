@@ -149,13 +149,15 @@ ndf = df.set_index(['이름']) # 인덱스를 이름으로 설정
 ndf2 = df.set_index('음악') # 음악 열을 인덱스로 설정
 ndf3 = df.set_index(['수학','음악']) # 수학 음악 열을 인덱스로 설정
 
-#행 인덱스 재배열 / reindex()
+#행 인덱스 재배열 
 #새로운 인덱스가 추가되면 그에 맞는 모든 열은 NaN 입력
 dict_data = {'c0':[1,2,3],'c1':[4,5,6],'c2':[7,8,9],'c3':[10,11,12],'c4':[13,14,15]}
 df=pd.DataFrame(dict_data, index=['r0','r1','r2'])
 
+#reindex()
 new_index=['r0','r1','r2','r3','r4']
 ndf=df.reindex(new_index,fill_value=0) # NaN을 0으로 변경
+ndf=df.reindex(['r1','r4'],fill_value=0) # r1,r4 인덱스에 남아있는 값만 보존 / 나머지는 0
 
 #행 인덱스 초기화 / reset_index()
 ndf=df.rest_index() # 인덱스를 0~...으로 / 기존에 있던 인덱스는 열로 변경
