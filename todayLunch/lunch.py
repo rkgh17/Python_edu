@@ -11,7 +11,10 @@ while line!='':
 f.close()
 
 # print(lunch)
+a=0
+# while a!=0:
 today=random.randint(0,len(lunch))
 print('오늘의 메뉴는!!!!!!!!!!!!!!!!!!!!!!')
 print()
 print(lunch[today]['name'])
+    # a=int(input('다시?/(0)'))
