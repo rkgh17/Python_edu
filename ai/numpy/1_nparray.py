@@ -35,7 +35,7 @@ print(a*2) # 파이썬 리스트에 * n = n번 반복
 print(b*2) # 값들을 2배씩 곱함
 print(c+3) # 값마다 3씩 더함
 
-#1ckdnjs qoduf
+#1차원 배열
 a = np.array([1,2,3],dtype=int)
 b = np.array([1.1,2.2,3.3],dtype=float)
 a1 = np.array([1,2,3],dtype=float)

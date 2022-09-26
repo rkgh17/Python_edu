@@ -90,9 +90,6 @@ df=pd.DataFrame(exam_data)
 1  우현  80    89     95     90
 2  인아  70    95    100     90
 """
-
-# 행 선택
-# loc / iloc
 df.loc['서준'] #서준 행
 df.iloc[0]
 
@@ -135,3 +132,36 @@ df.loc[5] = df.loc[3] # 기존 행 복사
 
 # 원소 값 변경
 
+# 서준의 체육점수 변경
+df.iloc[0][3]
+df.loc['서준']['체육'] = 90
+
+# 서준의 음악 체육 점수 변경
+df.loc['서준',['음악','체육']] = 50
+df.loc['서준',['음악','체육']] = 100, 50
+
+# 행/열 위치 바꾸기
+df=df.transpose()
+df=df.T
+
+#인덱스 활용 / set_index()
+ndf = df.set_index(['이름']) # 인덱스를 이름으로 설정
+ndf2 = df.set_index('음악') # 음악 열을 인덱스로 설정
+ndf3 = df.set_index(['수학','음악']) # 수학 음악 열을 인덱스로 설정
+
+#행 인덱스 재배열 / reindex()
+#새로운 인덱스가 추가되면 그에 맞는 모든 열은 NaN 입력
+dict_data = {'c0':[1,2,3],'c1':[4,5,6],'c2':[7,8,9],'c3':[10,11,12],'c4':[13,14,15]}
+df=pd.DataFrame(dict_data, index=['r0','r1','r2'])
+
+new_index=['r0','r1','r2','r3','r4']
+ndf=df.reindex(new_index,fill_value=0) # NaN을 0으로 변경
+
+#행 인덱스 초기화 / reset_index()
+ndf=df.rest_index() # 인덱스를 0~...으로 / 기존에 있던 인덱스는 열로 변경
+
+#행 인덱스 기준 정렬 / sort_index()
+ndf=df.sort_index(ascending=False) # 내림차순 정렬
+
+#특정 열의 데이터 값을 기준으로 데이터프레임 정렬 sort_values()
+ndf=df.sort_values(by='c1',ascending=False) # c1을 기준으로 내림차순 정렬
