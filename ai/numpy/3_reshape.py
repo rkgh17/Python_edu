@@ -15,3 +15,14 @@ print(np.shape(a)) # 페이지, 행, 열
 print('\n')
 a.shape = (2, 3, 3) # 총 길이(곱)과 같아야 함.
 print(a)
+
+#배열곱 행렬곱
+a = np.array([[1,2],[3,4]])
+b = np.array([[1,3],[2,4]])
+
+print(a*b)
+
+ma=np.mat(a)
+mb=np.mat(b)
+print('-'*30)
+print(ma*mb)
