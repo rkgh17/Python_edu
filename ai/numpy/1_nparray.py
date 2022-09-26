@@ -113,3 +113,10 @@ c = np.linspace(0,10,num=5,endpoint=False,retstep=False) # endpoint가 ture일 �
 print(a)
 print(b)
 print(c)
+#로그 배율을 사용
+a = np.logspace(0,10,num=5,endpoint=True,base=10.0)
+b = np.logspace(1,10,num=5,endpoint=True,base=5.0)
+c = np.logspace(0,10,num=5,endpoint=False,base=1.0)
+print(a)
+print(b)
+print(c)
