@@ -38,7 +38,7 @@ print(df)
 3rd     Jacob  77778888      M  None
 4th  Johanson  12345432      F    MI
 """
-
+#행/열 모두변경 -> 다써줘야함
 df.index=['1ST','2ND','3RD','4TH']
 df.columns=['이름','모바일','성별','도시']
 print(df)
@@ -49,7 +49,7 @@ print(df)
 3RD     Jacob  77778888  M  None
 4TH  Johanson  12345432  F    MI
 """
-
+#특정 행/열 변경
 df.rename(index={'1ST':'첫줄','3ND':'셋째','2ND':'둘째'})
 df.rename(columns={'도시':'City','모바일':'Mobile','성별':'Gender'})
 """
@@ -60,6 +60,7 @@ df.rename(columns={'도시':'City','모바일':'Mobile','성별':'Gender'})
 4TH	Johanson12345432	F	MI
 """
 
+#df.drop
 #행 (axis=0(default)) / 열 (axis=1)
 #inplace=True : 진짜 삭제 / False(default) : 진짜 삭제x
 df.drop(['2ND','3RD'])
@@ -76,10 +77,61 @@ df.drop({'모바일','도시'},axis=1)
 3RD	Jacob	M
 4TH	Johanson	F
 """
-# loc/iloc
-# 2개 이상일때 -> .loc[['a','b']]
-# 인덱스 이름 ['a':'c'] -> a,b,c
-df.loc['2ND'] #인덱스 이름이 2ND인것
-df.loc[['2ND','3RD']] # 인덱스 이름이 2ND와 3RD
-# 정수형 위치 인덱스 [3:7] -> 3,4,5,6
-df.iloc[3] #위치 인덱스가 3인것
+# 행 선택 : loc/iloc
+exam_data={'이름':['서준','우현','인아'],
+           '수학':[90,80,70],
+           '영어':[98,89,95],
+           '음악':[85,95,100],
+           '체육':[100,90,90]}
+df=pd.DataFrame(exam_data)
+"""
+   이름  수학  영어   음악   체육
+0  서준  90    98     85    100
+1  우현  80    89     95     90
+2  인아  70    95    100     90
+"""
+
+# 행 선택
+# loc / iloc
+df.loc['서준'] #서준 행
+df.iloc[0]
+
+df.loc[['서준','우현']] # 여러 개의 행
+df.iloc[[0],[1]]
+
+df.loc['서준':'우현'] # 서준~우현 행
+df.iloc[0:1]
+
+df.iloc[::1] # 간격 1
+
+
+# 열 선택
+df['수학']
+df[['음악','체육']] # 여러 개 열 선택
+
+
+# 원소 선택
+df.loc['서준','음악'] # 서준행 영어열 객체 반환
+df.iloc[0,2]
+
+df.loc['서준',['음악','체육']] # 서준행의 음악/체육열 객체 반환
+df.iloc[0,[2,3]]
+df.loc['서준','음악':'체육'] # 서준행 / 음악부터 체육 열
+df.iloc[0,2:]
+
+df.loc[['서준','우현'],['음악','체육']] # 서준과 우현 행 / 음악과 체육 열
+df.iloc[[0,1],[2,3]]
+df.loc['서준':'우현','음악':'체육'] # 서준부터 우현 행 / 음악부터 체육 열
+df.iloc[0:2,2:]
+
+
+# 열 추가
+df['국어']=80 # 국어 열을 80으로 일괄추가
+
+# 행 추가
+df.loc[3] = 0 # 인덱스가 3인 행을 0으로 일괄추가
+df.loc[4] = ['동규',90,80,70,60]
+df.loc[5] = df.loc[3] # 기존 행 복사
+
+# 원소 값 변경
+
