@@ -70,6 +70,10 @@ print(df)
 print()
 
 #BeautifulSoup
+from bs4 import BeautifulSoup as bs
+import requests
+import re
+
 url='https://en.wikipedia.org/wiki/List_of_American_exchange-traded_funds'
 resp=requests.get(url)
 soup=bs(resp.text,'lxml')
@@ -78,33 +82,56 @@ etfs={}
 
 for row in rows:
     try:
-        str=row.text
-        ndx=str.index('(')
-        etf_name=str[:ndx]
-        etf_name=etf_name.strip()
+        str=row.text #전체 문자열
+        ndx=str.find('(') # 첫 괄호 의 위치
+        if ndx<0:
+            continue
+        etf_name=str[:ndx] # 처음부터 첫 괄호까지 추출
+        etf_name=etf_name.strip() #앞뒤 공백제거
+#         print(etf_name)
+#         print('\n')
+
+        ndx1=str.find(':',ndx)#괄호 뒤 문자열의 :위치
         
-        ndx1=str.index(':')
-        etf_market=str[ndx+1:ndx1]
-        etf_market=etf_name.strip()
-        
-        ndx2=str.index(')')
-        etf_ticker=str[ndx1+1:ndx2]
-        etf_ticker=etf_ticker.strip()
-        
-        etfs[etf_ticker] = [etf_market, etf_name]
-        
-#         etf_name=re.findall('^(.*) \(NYSE',row.text)
-#         etf_market=re.findall('\((.*)',row.text)
-#         etf_ticker=re.findall('NYSE Arca\|(.*)\)',row.text)
-#         .find 못찾으면 -1
-#         .index 못찾으면 ValueError
-        
-        if(len(etf_ticker)>0) & (len(etf_market)>0) & (len(etf_name)>0):
-            etfs[etf_ticker[0]] = [etf_market[0], etf_name[0]]
+        if ndx1>-1:#콜론이 있을때
+            etf_market=str[ndx+1:ndx1]#첫 괄호 다음부터 콜론 전까지
+            etf_market=etf_market.strip()
+#             print(etf_market)
+#             print('\n')
+            
+            ndx2=str.find(')')#마지막 괄호의 인덱스
+            etf_ticker=str[ndx1+1:ndx2]#콜론부터 마지막 괄호까지
+            etf_ticker=etf_ticker.strip()
+            
+            etfs[etf_ticker] = [etf_market,etf_name]
+            
+            
+#             print(f'etf_market:[{etf_market}]')
+#             print(f'etf_ticker:[{etf_ticker}]')
+            
+        else:#콜론이 없을때
+            ndx2=str.find(')')#마지막 괄호의 위치
+            str1=str[ndx+1:ndx2]#콸호 안의 문자열 추출
+            str1=str1.strip()
+            
+            ndx1=str1.rfind(' ')#맨뒤서부터 첨 나오는 공백의 위치
+
+            if ndx1>-1:
+                etf_market=str1[:ndx1]#첨부터 rfind
+                etf_market=etf_market.strip()
+                
+                etf_ticker=str1[ndx1:]#rfind부터 마지막
+                etf_ticker=etf_ticker.strip()
+                
+#                 print(f'etf_market:[{etf_market}]')
+#                 print(f'etf_ticker:[{etf_ticker}]')
+                etfs[etf_ticker] = [etf_market,etf_name]
+
     except ValueError as err:
         pass
 print(etfs)
-print('\n')
-
+print('-'*30)
 df=pd.DataFrame(etfs)
 print(df)
+
+#API 활용
