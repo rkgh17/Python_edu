@@ -78,13 +78,30 @@ etfs={}
 
 for row in rows:
     try:
-        etf_name=re.findall('^(.*) \(NYSE',row.text)
-        etf_market=re.findall('\((.*)\|',row.text)
-        etf_ticker=re.findall('NYSE Arca\|(.*)\)',row.text)
-
+        str=row.text
+        ndx=str.index('(')
+        etf_name=str[:ndx]
+        etf_name=etf_name.strip()
+        
+        ndx1=str.index(':')
+        etf_market=str[ndx+1:ndx1]
+        etf_market=etf_name.strip()
+        
+        ndx2=str.index(')')
+        etf_ticker=str[ndx1+1:ndx2]
+        etf_ticker=etf_ticker.strip()
+        
+        etfs[etf_ticker] = [etf_market, etf_name]
+        
+#         etf_name=re.findall('^(.*) \(NYSE',row.text)
+#         etf_market=re.findall('\((.*)',row.text)
+#         etf_ticker=re.findall('NYSE Arca\|(.*)\)',row.text)
+#         .find 못찾으면 -1
+#         .index 못찾으면 ValueError
+        
         if(len(etf_ticker)>0) & (len(etf_market)>0) & (len(etf_name)>0):
             etfs[etf_ticker[0]] = [etf_market[0], etf_name[0]]
-    except AttributeError as err:
+    except ValueError as err:
         pass
 print(etfs)
 print('\n')
