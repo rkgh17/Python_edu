@@ -3,8 +3,12 @@ CSV (Comma-Separtated Values) : ,로 구분 / .csv
 Exel (MS) / .xlsx
 JSON () : 키:값 쌍으로 구분 : .txt
 """
+from urllib import request
 import numpy as np
 import pandas as pd
+from bs4 import BeautifulSoup as bs
+import requests
+import re
 
 #CSV
 file_path = 'D:/AI_Class/Python/bigdata/pandas/read_csv_sample.csv'
@@ -59,3 +63,31 @@ for i in range(len(tables)):
     print('tables[%s]'%i)
     print(tables[i])
     print()
+    
+df=tables[1]
+df.set_index(['name'],inplace=True)
+print(df)
+print()
+
+#BeautifulSoup
+url='https://en.wikipedia.org/wiki/List_of_American_exchange-traded_funds'
+resp=requests.get(url)
+soup=bs(resp.text,'lxml')
+rows=soup.select('div > ul > li')
+etfs={}
+
+for row in rows:
+    try:
+        etf_name=re.findall('^(.*) \(NYSE',row.text)
+        etf_market=re.findall('\((.*)\|',row.text)
+        etf_ticker=re.findall('NYSE Arca\|(.*)\)',row.text)
+
+        if(len(etf_ticker)>0) & (len(etf_market)>0) & (len(etf_name)>0):
+            etfs[etf_ticker[0]] = [etf_market[0], etf_name[0]]
+    except AttributeError as err:
+        pass
+print(etfs)
+print('\n')
+
+df=pd.DataFrame(etfs)
+print(df)
