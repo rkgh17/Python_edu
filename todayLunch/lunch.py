@@ -13,7 +13,7 @@ f.close()
 # print(lunch)
 a=0
 # while a!=0:
-today=random.randint(0,len(lunch))
+today=random.randint(0,len(lunch)-1)
 print('오늘의 메뉴는!!!!!!!!!!!!!!!!!!!!!!')
 print()
 print(lunch[today]['name'])

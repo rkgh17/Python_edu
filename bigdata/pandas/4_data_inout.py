@@ -30,3 +30,32 @@ print()
 df2=pd.read_csv(file_path,header=None) 
 print(df2)
 print()
+
+df3=pd.read_csv(file_path,index_col=None) 
+print(df3)
+print()
+
+df4=pd.read_csv(file_path,index_col='c0') 
+print(df4)
+print()
+
+#Excel
+df1=pd.read_excel('D:/AI_Class/Python/bigdata/pandas/남북한발전전력량.xlsx',engine='openpyxl')#header0
+df2=pd.read_excel('D:/AI_Class/Python/bigdata/pandas/남북한발전전력량.xlsx',engine='openpyxl',header=None)#header0
+print(df1)
+print()
+print(df2)
+
+#JSON
+df=pd.read_json('D:/AI_Class/Python/bigdata/pandas/read_json_sample.json')
+print(df)
+
+#HTML
+url='D:/AI_Class/Python/bigdata/pandas/sample.html'
+tables = pd.read_html(url)
+print(len(tables))
+print()
+for i in range(len(tables)):
+    print('tables[%s]'%i)
+    print(tables[i])
+    print()
