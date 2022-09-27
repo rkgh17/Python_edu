@@ -133,5 +133,3 @@ print(etfs)
 print('-'*30)
 df=pd.DataFrame(etfs)
 print(df)
-
-#API 활용
